@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - react-crud-springapp
+name: Build and deploy Node.js app to Azure Web App - athlete-app
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install -g npm --force
-          ##npm install
           ##npm run build --if-present
+          ##npm run test --if-present
       
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: node-app
           path: .
@@ -50,7 +50,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'react-crud-springapp'
+          app-name: 'athlete-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C641F64748D14AAD9423907C80E9B518 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1363968F3BA74A7A8BA65F6D8BAF92F1 }}
           package: .
