@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TutorialDataService from "../services/athlete.service";
+import TutorialDataService from "../../services/athlete.service";
 
 export default class AddAthlete extends Component {
   constructor(props) {

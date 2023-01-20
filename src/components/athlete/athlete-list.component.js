@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AthleteDataService from "../services/athlete.service";
+import AthleteDataService from "../../services/athlete.service";
 import { Link } from "react-router-dom";
 
 import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBadge, MDBBtn } from 'mdb-react-ui-kit';

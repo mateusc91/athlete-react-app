@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import AthleteDataService from "../services/athlete.service";
-import { withRouter } from '../common/with-router';
+import AthleteDataService from "../../services/athlete.service";
+import { withRouter } from '../../common/with-router';
 import {
     MDBCol,
     MDBContainer,
