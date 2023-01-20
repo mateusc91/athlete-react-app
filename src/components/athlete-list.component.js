@@ -28,7 +28,6 @@ export default class AthletesList extends Component {
 
   onChangeSearchName(e) {
     const searchName = e.target.value;
-
     this.setState({
       searchName: searchName
     });
@@ -87,7 +86,7 @@ export default class AthletesList extends Component {
   }
 
   render() {
-    const { searchName, athletes, currentAthlete, currentIndex } = this.state;
+    const { athletes} = this.state;
     return (
     //   <div className="list row">
     //     <div className="col-md-8">
