@@ -1,17 +1,8 @@
 import React, { Component } from "react";
 import AthleteDataService from "../services/athlete.service";
-import { Link,Routes, Route, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import {
-    MDBCard,
-    MDBCardBody,
-    MDBCol,
-    MDBListGroup,
-    MDBListGroupItem,
-    MDBRow
-  } from 'mdb-react-ui-kit';
-  import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBadge, MDBBtn } from 'mdb-react-ui-kit';
-import AddAthlete from "./add-athlete.component";
+import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBadge, MDBBtn } from 'mdb-react-ui-kit';
 
 export default class AthletesList extends Component { 
   constructor(props) {
