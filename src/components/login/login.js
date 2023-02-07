@@ -1,62 +1,158 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import { withRouter } from '../../common/with-router';
+import AuthService from '../../services/auth.service';
 
-import Form from "react-bootstrap/Form";
+
 
 import Button from "react-bootstrap/Button";
 
 
-export default function Login(props) {
+class Login extends Component {
 
-  const [email, setEmail] = useState("");
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
 
-  const [password, setPassword] = useState("");
-
-  function validateForm() {
-
-    return email.length > 0 && password.length > 0;
-
+    this.state = {
+      username: "admin",
+      password: "admin",
+      loading: false,
+      message: "",
+      logged: false
+    };
   }
 
-  function handleSubmit(event) {
-
-    event.preventDefault();
-
+  onChangeUsername(e) {
+    this.setState({
+      username: e.target.value
+    });
   }
 
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
+  handleLogin(e) {
+    e.preventDefault();
+
+    this.setState({
+      message: "",
+      loading: true,
+      logged : true
+    });
+
+    this.form.validateAll();
+    console.log("login.js loading " + this.state.loading);
+    console.log("login.js " + this.state.logged);
+    AuthService.getLoginAuth( this.state.logged);
+    this.props.router.navigate("/clubs");
+
+
+  //   if (this.checkBtn.context._errors.length === 0) {
+  //     (this.state.username != null || this.state.password != null).then(
+  //       () => {
+  //         this.props.router.navigate("/profile");
+  //         window.location.reload();
+  //       },
+  //       error => {
+  //         const resMessage =
+  //           (error.response &&
+  //             error.response.data &&
+  //             error.response.data.message) ||
+  //           error.message ||
+  //           error.toString();
+
+  //         this.setState({
+  //           loading: false,
+  //           message: resMessage
+  //         });
+  //       }
+  //     );
+  //   } else {
+  //     this.setState({
+  //       loading: false
+  //     });
+  //   }
+  // }
+  }
+
+  render() {
   return (
+    <div className="col-md-12">
+        <div className="card card-container">
+          <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
 
-    <div className="Auth-form-container">
-    <form className="Auth-form">
-      <div className="Auth-form-content">
-        <h3 className="Auth-form-title">Sign In</h3>
-        <div className="form-group mt-3">
-          <label>Email address</label>
-          <input
-            type="email"
-            className="form-control mt-1"
-            placeholder="Enter email"
-          />
+          <Form
+            onSubmit={this.handleLogin}
+            ref={c => {
+              this.form = c;
+            }}
+          >
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <Input
+                type="text"
+                className="form-control"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChangeUsername}
+                // validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <Input
+                type="password"
+                className="form-control"
+                name="password"
+                value={this.state.password}
+                onChange={this.onChangePassword}
+                // validations={[required]}
+              />
+            </div>
+            <br></br>
+            <div className="form-group">
+              <button
+                className="btn btn-primary btn-block"
+                disabled={this.state.loading}
+              >
+                {this.state.loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Login</span>
+              </button>
+            </div>
+
+            {this.state.message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {this.state.message}
+                </div>
+              </div>
+            )}
+            <CheckButton
+              style={{ display: "none" }}
+              ref={c => {
+                this.checkBtn = c;
+              }}
+            />
+          </Form>
         </div>
-        <div className="form-group mt-3">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control mt-1"
-            placeholder="Enter password"
-          />
-        </div>
-        <div className="d-grid gap-2 mt-3">
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </div>
-        <p className="forgot-password text-right mt-2">
-          Forgot <a href="#">password?</a>
-        </p>
       </div>
-    </form>
-  </div>
-
   );
-
+ }
 }
+
+export default withRouter(Login);

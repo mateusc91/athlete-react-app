@@ -2,31 +2,31 @@ import http from "../http-common";
 
 class ClubDataService {
   getAll() {
-    return http.get("");
+    return http.get("/clubs");
   }
 
   get(id) {
-    return http.get(`/athlete/${id}`);
+    return http.get(`clubs/club/${id}`);
   }
 
   create(data) {
-    return http.post("/save", data);
+    return http.post("clubs/save", data);
   }
 
   update(id, data) {
-    return http.put(`/athlete/${id}`, data);
+    return http.put(`clubs/club/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/athlete/${id}`);
+    return http.delete(`clubs/club/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/delete-athletes`);
+    return http.delete(`/delete-clubs`);
   }
 
   findByName(name) {
-    return http.get(`/athlete?name=${name}`);
+    return http.get(`/club?name=${name}`);
   }
 }
 

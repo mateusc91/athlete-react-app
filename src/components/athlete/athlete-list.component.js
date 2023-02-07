@@ -1,29 +1,35 @@
 import React, { Component } from "react";
 import AthleteDataService from "../../services/athlete.service";
+import ClubDataService from "../../services/club.service";
 import { Link } from "react-router-dom";
 
 import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBadge, MDBBtn } from 'mdb-react-ui-kit';
 
 export default class AthletesList extends Component { 
+  
   constructor(props) {
     super(props);
     this.onChangeSearchName = this.onChangeSearchName.bind(this);
-    this.retrieveAthletes = this.retrieveAthletes.bind(this);
+    //this.retrieveAthletes = this.retrieveAthletes.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveAthlete = this.setActiveAthlete.bind(this);
     this.removeAllAthletes = this.removeAllAthletes.bind(this);
     this.searchName = this.searchName.bind(this);
+    this.findByClubId = this.findByClubId.bind(this);
 
     this.state = {
-      athletes: [],
+      clubs: [],
       currentAthlete: null,
       currentIndex: -1,
-      searchName: ""
+      searchName: "",
+      clubId: null,
+      findByClubId:""
     };
   }
 
   componentDidMount() {
-    this.retrieveAthletes();
+    const queryParameters = new URLSearchParams(window.location.search)
+    this.findByClubId();
   }
 
   onChangeSearchName(e) {
@@ -33,11 +39,13 @@ export default class AthletesList extends Component {
     });
   }
 
-  retrieveAthletes() {
-    AthleteDataService.getAll()
+  findByClubId() {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const clubId = queryParameters.get("clubId")
+    AthleteDataService.findByClubId(clubId)
       .then(response => {
         this.setState({
-          athletes: response.data
+          clubs: response.data
         });
         console.log(response.data);
       })
@@ -76,7 +84,7 @@ export default class AthletesList extends Component {
     AthleteDataService.findByName(this.state.searchName)
       .then(response => {
         this.setState({
-          athletes: response.data
+          clubs: response.data
         });
         console.log(response.data);
       })
@@ -86,7 +94,7 @@ export default class AthletesList extends Component {
   }
 
   render() {
-    const { athletes} = this.state;
+    const { clubs} = this.state;
     return (
     //   <div className="list row">
     //     <div className="col-md-8">
@@ -113,8 +121,8 @@ export default class AthletesList extends Component {
     //       <h4>Athletes List</h4>
 
     //       <ul className="list-group">
-    //         {athletes &&
-    //           athletes.map((athlete, index) => (
+    //         {clubs &&
+    //           clubs.map((athlete, index) => (
     //             <li
     //               className={
     //                 "list-group-item " +
@@ -159,7 +167,7 @@ export default class AthletesList extends Component {
     //           </div>
 
     //           <Link
-    //             to={"/athletes/" + currentAthlete.id}
+    //             to={"/clubs/" + currentAthlete.id}
     //             className="badge badge-warning"
     //           >
     //             Edit
@@ -187,12 +195,12 @@ export default class AthletesList extends Component {
             </tr>
           </MDBTableHead>
           <MDBTableBody style={{ verticalAlign: 'middle' }}>
-          {athletes &&
-              athletes.map((athlete, index) => {
-                return(                  
+          {clubs &&
+              clubs.map((club, index) => {
+                return(                             
             <tr key={index}>             
               <td>   
-              <Link to={`/athlete/${athlete.id}`}>             
+              <Link to={`/athlete/1`}>             
                 <div className='d-flex align-items-center'>  
                           
                   <img
@@ -206,9 +214,9 @@ export default class AthletesList extends Component {
                 </Link> 
                 
               </td>
-              <td>{athlete.name}</td>
-              <td>{athlete.dob}</td>
-              <td>Midfielder</td>
+              <td>{club.name}</td>
+              <td>{club.dob}</td>
+              <td>{club.name}</td>
               <td>
                 <MDBBadge light color='success' pill>
                   Active

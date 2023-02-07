@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AthleteDataService from "../../services/athlete.service";
+import ClubDataService from "../../services/club.service";
 import { withRouter } from '../../common/with-router';
 import {
     MDBCol,
@@ -23,23 +23,24 @@ class Name extends Component {
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDob = this.onChangeDob.bind(this);
     this.getName = this.getName.bind(this);
-    this.getAthlete = this.getAthlete.bind(this);
+    this.getClub = this.getClub.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
     this.updateName = this.updateName.bind(this);
     this.deleteName = this.deleteName.bind(this);
 
     this.state = {
       currentName: {
-        id: null,
-        name: "",
-        dob: "",
+        clubId: null,
+        clubName: "",
+        coach: "",
+        athletes:[]
       },
       message: ""
     };
   }
 
-  componentDidMount() {
-    this.getName(this.props.router.params.id);
+  componentDclubIdMount() {
+    this.getName(this.props.router.params.clubId);
   }
 
   onChangeName(e) {
@@ -66,8 +67,8 @@ class Name extends Component {
     }));
   }
 
-  getName(id) {
-    AthleteDataService.get(id)
+  getName(clubId) {
+    ClubDataService.get(clubId)
       .then(response => {
         this.setState({
           currentName: response.data
@@ -79,9 +80,9 @@ class Name extends Component {
       });
   }
 
-  getAthlete(id) {
-    console.log(id);
-    AthleteDataService.get(1)
+  getClub(clubId) {
+    console.log(clubId);
+    ClubDataService.get(clubId)
       .then(response => {
         this.setState({
           currentName: response.data
@@ -95,13 +96,13 @@ class Name extends Component {
 
   updatePublished(status) {
     var data = {
-      id: this.state.currentName.id,
+      clubId: this.state.currentName.clubId,
       name: this.state.currentName.name,
       dob: this.state.currentName.dob,
       published: status
     };
 
-    AthleteDataService.update(this.state.currentName.id, data)
+    ClubDataService.update(this.state.currentName.clubId, data)
       .then(response => {
         this.setState(prevState => ({
           currentName: {
@@ -117,8 +118,8 @@ class Name extends Component {
   }
 
   updateName() {
-    AthleteDataService.update(
-      this.state.currentName.id,
+    ClubDataService.update(
+      this.state.currentName.clubId,
       this.state.currentName
     )
       .then(response => {
@@ -133,7 +134,7 @@ class Name extends Component {
   }
 
   deleteName() {    
-    AthleteDataService.delete(this.state.currentName.id)
+    ClubDataService.delete(this.state.currentName.clubId)
       .then(response => {
         console.log(response.data);
         this.props.router.navigate('/athletes');
@@ -157,7 +158,7 @@ class Name extends Component {
     //             <input
     //               type="text"
     //               className="form-control"
-    //               id="name"
+    //               clubId="name"
     //               value={currentName.name}
     //               onChange={this.onChangeName}
     //             />
@@ -167,7 +168,7 @@ class Name extends Component {
     //             <input
     //               type="text"
     //               className="form-control"
-    //               id="dob"
+    //               clubId="dob"
     //               value={currentName.dob}
     //               onChange={this.onChangeDob}
     //             />
@@ -229,8 +230,8 @@ class Name extends Component {
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                   alt="avatar"
                   className="rounded-circle"
-                  style={{ width: '150px' }}
-                  fluid />
+                  style={{ wclubIdth: '150px' }}
+                  fluclubId />
                 <p className="text-muted mb-4">{currentName.name}</p>
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn>Follow</MDBBtn>
@@ -332,27 +333,27 @@ class Name extends Component {
                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Scout</span></MDBCardText>
                     <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Games played</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={80} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Different positions played</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={72} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={89} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={55} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={66} valuemin={0} valuemax={100} />
                     </MDBProgress>
                   </MDBCardBody>
                 </MDBCard>
@@ -364,27 +365,27 @@ class Name extends Component {
                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
                     <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={80} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={72} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={89} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={55} valuemin={0} valuemax={100} />
                     </MDBProgress>
 
                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
                     <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
+                      <MDBProgressBar wclubIdth={66} valuemin={0} valuemax={100} />
                     </MDBProgress>
                   </MDBCardBody>
                 </MDBCard>

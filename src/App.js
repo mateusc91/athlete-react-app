@@ -13,33 +13,55 @@ import AddAthlete from "./components/athlete/add-athlete.component";
 import Athlete from "./components/athlete/athlete-component";
 import AthletesList from "./components/athlete/athlete-list.component";
 import ClubsList from './components/club/club-list.component';
+import Club from "./components/club/club-component";
 import Login from './components/login/login';
+import AuthService from './services/auth.service';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showNavbar: false,
+    };
+  }
+
+  componentDidMount() {
+    const user = AuthService.getLoginAuth();
+    this.setState({
+      showNavbar : user  
+    });
+    console.log("app.js " + user)
+  }
+
   render() {
+    const {showNavbar}  = false;
+
     return (
       
     <section>
+      {/* {showNavbar && ( */}
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol>
+          
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
               <Link to={"/home"}>Home</Link>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-              <Link to={"/athletes"}>Athletes</Link>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
               <Link to={"/clubs"}>Clubs</Link>
               </MDBBreadcrumbItem>
             </MDBBreadcrumb>
+  
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+       {/* )} */}
       <div className="container mt-3">
           <Routes>
+          <Route path="/" element={<Login/>} />
             <Route path="/home/*" element={<Login/>} />
             <Route path="/athletes/*" element={<AthletesList/>} />
             <Route path="/add" element={<AddAthlete/>} />
