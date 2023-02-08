@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: athete-app
-          path: .
+          path: ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.YOUR_ZIP_PACKAGE_NAME }}
           retention-days: 1
 
   deploy:
@@ -54,8 +54,6 @@ jobs:
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
-        with:
-          name: athlete-app
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
