@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: athete-app
-          path: ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.YOUR_ZIP_PACKAGE_NAME }}
+          path: .
           retention-days: 1
 
   deploy:
