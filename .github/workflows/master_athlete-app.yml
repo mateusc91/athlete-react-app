@@ -40,8 +40,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: node-app
-          path: .
+          name: athete-app
+          path: ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.YOUR_ZIP_PACKAGE_NAME }}
           retention-days: 1
 
   deploy:
@@ -64,4 +64,4 @@ jobs:
           app-name: 'athlete-app'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1363968F3BA74A7A8BA65F6D8BAF92F1 }}
-          package: .
+          package: ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.YOUR_ZIP_PACKAGE_NAME }}
