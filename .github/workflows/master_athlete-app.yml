@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - athlete-app
 env:
   YOUR_AZURE_WEBAPP_NAME: athlete-app          # set this to your application's name
   YOUR_AZURE_WEBAPP_SLOT_NAME: Production # set this to your application's slot name
-  YOUR_AZURE_WEBAPP_PACKAGE_PATH: "."     # set this to the path to your web app project, defaults to the repository root
+  YOUR_AZURE_WEBAPP_PACKAGE_PATH: .    # set this to the path to your web app project, defaults to the repository root
   YOUR_NODE_VERSION: '18.x'                            # set this to the node version to use
   YOUR_ZIP_PACKAGE_NAME: "app-release.zip"
 
