@@ -61,7 +61,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'athlete-app'
+          app-name: athlete-app
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1363968F3BA74A7A8BA65F6D8BAF92F1 }}
           package: ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.YOUR_ZIP_PACKAGE_NAME }}
